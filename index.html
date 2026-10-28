@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коллоквиум математика. Часть 3 | Полный интерактивный конспект</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        /* ===== ПЕРЕМЕННЫЕ ДЛЯ ТЕМ ===== */
+        :root {
+            --bg-body: #f4f6fb;
+            --bg-container: #ffffff;
+            --bg-card: #fafbff;
+            --bg-formula: #f0f4ff;
+            --bg-highlight: #f7f9ff;
+            --bg-term: #eef3ff;
+            --bg-term-hover: #dbe6ff;
+            --bg-term-active: #c7d6f0;
+            --bg-popup: #ffffff;
+            --text-main: #1e2a3e;
+            --text-heading: #1a365d;
+            --text-plain: #3a4a63;
+            --text-muted: #5a6e8c;
+            --text-formula: #1a365d;
+            --text-term: #1a365d;
+            --border-main: #e2e8f0;
+            --border-card: #e2e8f0;
+            --border-term: #c7d6f0;
+            --border-popup: #c7d6f0;
+            --border-formula: #c7d6f0;
+            --accent: #4a7cff;
+            --accent-hover: #3563e0;
+            --shadow-container: 0 8px 30px rgba(0, 20, 60, 0.08);
+            --shadow-card-hover: 0 6px 20px rgba(74, 124, 255, 0.12);
+            --shadow-popup: 0 12px 35px rgba(0, 20, 60, 0.18);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f1420;
+            --bg-container: #161c2b;
+            --bg-card: #1b2233;
+            --bg-formula: #121826;
+            --bg-highlight: #121826;
+            --bg-term: #232c40;
+            --bg-term-hover: #2c3852;
+            --bg-term-active: #36466b;
+            --bg-popup: #1e2637;
+            --text-main: #d8e0ec;
+            --text-heading: #e8eef8;
+            --text-plain: #8a9ab5;
+            --text-muted: #7a8ca8;
+            --text-formula: #a8c4ff;
+            --text-term: #cfd9e8;
+            --border-main: #232c40;
+            --border-card: #232c40;
+            --border-term: #2e3a52;
+            --border-popup: #3a4a6b;
+            --border-formula: #2a3550;
+            --accent: #5b8def;
+            --accent-hover: #4a7ce0;
+            --shadow-container: 0 8px 40px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 4px 20px rgba(0, 0, 0, 0.25);
+            --shadow-popup: 0 16px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif; }
+
+        body { background: var(--bg-body); color: var(--text-main); padding: 2rem 1.5rem; min-height: 100vh; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+
+        .container { max-width: 1150px; margin: 0 auto; background: var(--bg-container); border-radius: 20px; padding: 2.5rem 2rem 3rem; box-shadow: var(--shadow-container); border: 1px solid var(--border-main); transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; position: relative; }
+
+        .theme-toggle { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--bg-term); border: 1px solid var(--border-term); color: var(--text-term); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s; z-index: 10; }
+        .theme-toggle:hover { background: var(--bg-term-hover); border-color: var(--accent); color: var(--accent); }
+        .theme-toggle:active { transform: scale(0.93); }
+
+        h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 700; text-align: center; color: var(--text-heading); letter-spacing: 1px; margin-bottom: 0.4rem; padding: 0 3rem; transition: color 0.3s; }
+        .subhead { text-align: center; font-size: 1rem; color: var(--text-muted); margin-bottom: 2.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border-main); transition: color 0.3s, border-color 0.3s; }
+        .subhead i { color: var(--accent); margin: 0 6px; }
+
+        .section { margin-bottom: 2.2rem; }
+        .section-title { font-size: 1.25rem; font-weight: 700; color: var(--text-heading); margin-bottom: 1rem; padding-left: 14px; border-left: 4px solid var(--accent); display: flex; align-items: center; gap: 10px; transition: color 0.3s, border-color 0.3s; }
+        .section-title i { color: var(--accent); font-size: 1.1rem; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.3rem; }
+
+        .card { background: var(--bg-card); border-radius: 16px; padding: 1.5rem 1.3rem; border: 1px solid var(--border-card); transition: background 0.3s, border-color 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
+        .card:hover { border-color: var(--accent); box-shadow: var(--shadow-card-hover); }
+        .card h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-heading); margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border-card); transition: color 0.3s, border-color 0.3s; }
+        .card h3 i { color: var(--accent); font-size: 1.1rem; }
+
+        .term { display: inline-block; background: var(--bg-term); color: var(--text-term); padding: 5px 14px; border-radius: 20px; font-weight: 600; cursor: pointer; position: relative; margin: 4px 4px 4px 0; border: 1px solid var(--border-term); transition: background 0.2s, border-color 0.2s, color 0.2s; user-select: none; font-size: 0.92rem; }
+        .term:hover { background: var(--bg-term-hover); border-color: var(--accent); color: var(--text-heading); }
+        .term:active { background: var(--bg-term-active); }
+        .term.active { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+        .definition-popup { position: fixed; z-index: 9999; max-width: 380px; background: var(--bg-popup); border: 1px solid var(--border-popup); border-radius: 14px; padding: 1.2rem 1.3rem; box-shadow: var(--shadow-popup); color: var(--text-main); font-size: 0.95rem; line-height: 1.6; opacity: 0; pointer-events: none; transform: translateY(8px) scale(0.97); transition: opacity 0.2s, transform 0.2s, background 0.3s, border-color 0.3s; }
+        .definition-popup.show { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+        .definition-popup::before { content: "ОПРЕДЕЛЕНИЕ"; display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; color: var(--accent); margin-bottom: 0.5rem; }
+        .definition-popup .def-title { font-weight: 700; font-size: 1.05rem; color: var(--text-heading); margin-bottom: 0.4rem; transition: color 0.3s; }
+        .definition-popup .def-text { color: var(--text-plain); transition: color 0.3s; }
+        .term-line { margin-bottom: 0.55rem; }
+
+        .formula-box { background: var(--bg-formula); padding: 1rem; border-radius: 12px; font-size: 1.15rem; text-align: center; color: var(--text-formula); border: 1px solid var(--border-formula); margin: 0.8rem 0; word-break: break-word; font-weight: 600; transition: background 0.3s, border-color 0.3s, color 0.3s; overflow-x: auto; }
+        .formula-box .MathJax { color: var(--text-formula) !important; }
+        
+        .decipher { font-size: 0.9rem; color: var(--text-main); margin: -0.2rem 0 1rem 0; padding: 0.8rem; background: var(--bg-highlight); border-radius: 8px; border: 1px dashed var(--border-term); }
+        .decipher p { margin-bottom: 0.4rem; }
+        .decipher strong { color: var(--text-heading); }
+        .decipher ul { list-style-type: none; padding-left: 0; }
+        .decipher li { margin-bottom: 0.2rem; display: flex; align-items: flex-start; gap: 6px; }
+        .decipher li i { color: var(--accent); margin-top: 4px; font-size: 0.75rem; }
+
+        .highlight-box { background: var(--bg-card); border-radius: 12px; padding: 0.9rem 1rem; margin: 0.8rem 0; border-left: 3px solid var(--accent); color: var(--text-plain); font-size: 0.92rem; line-height: 1.6; transition: background 0.3s, color 0.3s, border-color 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .highlight-box strong { color: var(--text-heading); }
+        .highlight-box ul { margin-top: 0.4rem; padding-left: 1.2rem; }
+        .highlight-box li { margin-bottom: 0.3rem; }
+
+        .table-wrap { overflow-x: auto; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: center; }
+        th, td { border: 1px solid var(--border-card); padding: 6px; }
+        th { background: var(--bg-term); color: var(--text-heading); font-weight: 600; }
+
+        .footer { margin-top: 2.8rem; text-align: center; font-size: 0.9rem; color: var(--text-muted); padding-top: 1.4rem; border-top: 1px solid var(--border-main); transition: color 0.3s, border-color 0.3s; }
+        .footer i { color: var(--accent); }
+
+        @media (max-width: 650px) { body { padding: 1rem 0.8rem; } .container { padding: 1.6rem 1rem 2rem; border-radius: 16px; } .card { padding: 1.3rem 1rem; } .definition-popup { max-width: 290px; } .theme-toggle { top: 1rem; right: 1rem; width: 40px; height: 40px; } h1 { padding: 0 2.5rem; } }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="container">
+        <button class="theme-toggle" id="themeToggle" title="Переключить тему">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <h1>Коллоквиум математика <br>Часть 3</h1>
+        <div class="subhead">
+            <i class="fas fa-hand-pointer"></i> Нажмите на термин — появится определение. Все формулы расшифрованы.
+        </div>
+
+        <!-- РАЗДЕЛ 1: НЕПРЕРЫВНЫЕ СВ -->
+        <div class="section">
+            <div class="section-title"><i class="fas fa-bell"></i> Нормальное распределение</div>
+            <div class="grid">
+
+                <div class="card">
+                    <h3><i class="fas fa-arrows-alt-h"></i> Вероятность попадания в интервал</h3>
+                    <div class="formula-box">\[ P(\alpha < X < \beta) = \Phi\left(\frac{\beta - a}{\sigma}\right) - \Phi\left(\frac{\alpha - a}{\sigma}\right) \]</div>
+                    <div class="decipher">
+                        <p><strong>Читается:</strong> Вероятность того, что нормально распределенная величина X попадет в интервал от альфа до бета, равна разности функции Лапласа от правой границы и левой.</p>
+                        <ul>
+                            <li><i class="fas fa-caret-right"></i> <b>\(\alpha, \beta\)</b> — границы интервала (куда мы хотим попасть)</li>
+                            <li><i class="fas fa-caret-right"></i> <b>\(a\)</b> — математическое ожидание (центр)</li>
+                            <li><i class="fas fa-caret-right"></i> <b>\(\sigma\)</b> — среднее квадратическое отклонение</li>
+                            <li><i class="fas fa-caret-right"></i> <b>\(\Phi(x)\)</b> — функция Лапласа (табличная функция)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-crosshairs"></i> Отклонение и правило трёх сигм</h3>
+                    <div class="formula-box">\[ P(|X - a| < \delta) = 2\Phi\left(\frac{\delta}{\sigma}\right) \]</div>
+                    <div class="decipher">
+                        <p><strong>Читается:</strong> Вероятность того, что X отклонится от центра не более чем на дельту.</p>
+                        <ul>
+                            <li><i class="fas fa-caret-right"></i> <b>\(\delta\)</b> — заданное отклонение (граница)</li>
+                            <li><i class="fas fa-caret-right"></i> <b>\(a\)</b> — центр (матожидание)</li>
+                        </ul>
+                    </div>
+                    <div class="term-line">
+                        <span class="term" data-term="Правило трёх сигм" data-def="Для нормально распределённой СВ вероятность отклонения от матожидания более чем на 3 сигмы практически равна нулю.">Правило трёх сигм</span>
+                    </div>
+                    <div class="formula-box">\[ P(|X - a| \le 3\sigma) \approx 0.9973 \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Если подставить \(\delta = 3\sigma\), то вероятность попадания в интервал \((a-3\sigma, a+3\sigma)\) составит 99.73%. Значит, отклонение больше 3 сигм — это практически невозможное событие (вероятность 0.27%).</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛ 2: СИСТЕМЫ СВ -->
+        <div class="section">
+            <div class="section-title"><i class="fas fa-cubes"></i> Системы случайных величин (По конспекту)</div>
+            <div class="grid">
+
+                <div class="card">
+                    <h3><i class="fas fa-table"></i> Системы СВ (ССВ)</h3>
+                    <div class="term-line">
+                        <span class="term" data-term="Система случайных величин (ССВ)" data-def="Совокупность случайных величин {X, Y, Z...}.">Система случайных величин (ССВ)</span>
+                    </div>
+                    <p style="font-size:0.9rem; margin-bottom: 0.5rem;"><strong>1. Таблица распределения (для дискретных):</strong> Перечислены все возможные пары значений и их вероятности. Сумма всех вероятностей \(\sum\sum p_{ij} = 1\).</p>
+                    
+                    <div class="table-wrap">
+                        <table>
+                            <tr><th>X \ Y</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(x_3\)</th><th>\(\sum\) (для X)</th></tr>
+                            <tr><td>\(y_1\)</td><td>0.10</td><td>0.30</td><td>0.20</td><td>0.60</td></tr>
+                            <tr><td>\(y_2\)</td><td>0.06</td><td>0.18</td><td>0.16</td><td>0.40</td></tr>
+                            <tr><td>\(\sum\) (для Y)</td><td>0.16</td><td>0.48</td><td>0.36</td><td>\(\sum = 1\)</td></tr>
+                        </table>
+                    </div>
+                    <div class="formula-explain">Суммы по строкам и столбцам дают так называемые <b>маргинальные (одномерные) законы распределения</b> каждой величины в отдельности.</div>
+
+                    <p style="font-size:0.9rem; margin: 0.5rem 0;"><strong>2. Функция распределения:</strong></p>
+                    <div class="formula-box">\[ F(x,y) = P(X < x, Y < y) \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Вероятность попадания случайной точки в левый нижний квадрат с вершиной в точке (x,y).</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Свойства F(x,y) из конспекта:</strong>
+                        <ul>
+                            <li><b>\(0 \le F(x,y) \le 1\)</b> — вероятность в пределах от 0 до 1.</li>
+                            <li><b>Неубывающая по каждому аргументу</b> — при расширении границ вероятность растет.</li>
+                            <li><b>\(F(-\infty, y) = F(x, -\infty) = 0\)</b> — в бесконечности слева вероятность нулевая.</li>
+                            <li><b>\(F(x, +\infty) = F_1(x)\)</b> — если убрать ограничение по Y, получим обычную функцию распределения X.</li>
+                            <li><b>\(F(+\infty, +\infty) = 1\)</b>.</li>
+                        </ul>
+                        <p style="margin-top:0.5rem;"><b>Вероятность попадания в прямоугольник:</b><br>
+                        \(P(a \le X < b, c \le Y < d) = F(b,d) - F(a,d) - F(b,c) + F(a,c)\)</p>
+                    </div>
+
+                    <p style="font-size:0.9rem; margin: 0.5rem 0;"><strong>3. Функция плотности:</strong></p>
+                    <div class="formula-box">\[ f(x,y) = \frac{\partial^2 F}{\partial x \partial y} \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Вторая смешанная производная функции распределения для непрерывных величин.</p>
+                        <ul>
+                            <li><i class="fas fa-caret-right"></i> <b>\(f(x,y) \ge 0\)</b> (неотрицательна)</li>
+                            <li><i class="fas fa-caret-right"></i> <b>Двойной интеграл по области = вероятности:</b> \(\iint_D f dx dy = P((X,Y) \in D)\)</li>
+                            <li><i class="fas fa-caret-right"></i> <b>Двойной интеграл от -∞ до +∞ = 1:</b> \(\iint f dx dy = 1\) (объем под поверхностью).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-link"></i> Зависимость и теорема умножения</h3>
+                    <div class="term-line">
+                        <span class="term" data-term="Независимые СВ" data-def="Случайные величины независимы, если закон распределения одной из них не зависит от того, какие значения приняла другая.">Независимые СВ</span>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Из конспекта:</strong>
+                        <ul>
+                            <li>Если X и Y независимы, то корреляционный момент <b>\(K_{xy} = 0\)</b> и коэффициент корреляции <b>\(r_{xy} = 0\)</b>.</li>
+                            <li><b>Обратное неверно!</b> Если \(K_{xy} = 0\), это значит лишь отсутствие <i>линейной</i> связи. Величины могут быть зависимы нелинейно.</li>
+                        </ul>
+                    </div>
+                    
+                    <p style="font-size:0.9rem; margin-top: 1rem;"><strong>Теорема умножения вероятностей:</strong></p>
+                    <div class="formula-box">\[ P(AB) = P(A) \cdot P(B) \]</div>
+                    <div class="decipher">
+                        <ul>
+                            <li><b>P(AB)</b> — вероятность совместного наступления независимых событий</li>
+                            <li><b>P(A), P(B)</b> — их индивидуальные вероятности</li>
+                        </ul>
+                        <p><i>Для плотностей независимых СВ:</i> \(f(x,y) = f_1(x) \cdot f_2(y)\) (совместная плотность равна произведению одномерных).</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛ 3: ЧИСЛОВЫЕ ХАРАКТЕРИСТИКИ -->
+        <div class="section">
+            <div class="section-title"><i class="fas fa-chart-line"></i> Моменты и корреляция (По конспекту)</div>
+            <div class="grid">
+
+                <div class="card">
+                    <h3><i class="fas fa-cogs"></i> Моменты распределения ССВ</h3>
+                    <div class="term-line">
+                        <span class="term" data-term="Начальный момент" data-def="Характеризует рассеивание значений относительно начала координат.">Начальный момент</span>
+                        <span class="term" data-term="Центральный момент" data-def="Характеризует рассеивание значений относительно математических ожиданий.">Центральный момент</span>
+                    </div>
+                    <div class="formula-box">\[ a_{ks} = M(X^k \cdot Y^s) \]</div>
+                    <div class="decipher">
+                        <p><strong>Начальный момент (из конспекта):</strong></p>
+                        <ul>
+                            <li><b>k, s</b> — порядки (степени)</li>
+                            <li>Моменты 1-го порядка: \(a_{10} = M(X) = m_x\), \(a_{01} = m_y\).</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">\[ \mu_{ks} = M((X - m_x)^k \cdot (Y - m_y)^s) \]</div>
+                    <div class="decipher">
+                        <p><strong>Центральный момент:</strong></p>
+                        <ul>
+                            <li>Отклонения берутся от математических ожиданий (\(m_x, m_y\))</li>
+                            <li>\(\mu_{20} = Dx\), \(\mu_{02} = Dy\) (дисперсии).</li>
+                        </ul>
+                    </div>
+
+                    <p style="font-size:0.9rem; margin-top: 1rem;"><strong>Корреляционный момент:</strong></p>
+                    <div class="formula-box">\[ K_{xy} = \mu_{11} = M(XY) - m_x m_y \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Характеризует степень зависимости СВ.</p>
+                        <p><strong>Свойства из конспекта:</strong></p>
+                        <ul>
+                            <li>Если независимы, то \(K_{xy} = 0\) (обратно неверно).</li>
+                            <li><b>Недостатки \(K_{xy}\):</b> 1) зависит от единиц измерения; 2) \(K_{xy} \to 0\) за счет массового отклонения значений одной из СВ от её мат. ожидания.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Коэффициент корреляции</h3>
+                    <div class="term-line">
+                        <span class="term" data-term="Коэффициент корреляции" data-def="Отношение корреляционного момента к произведению средних квадратических отклонений.">Коэффициент корреляции</span>
+                    </div>
+                    <div class="formula-box">\[ r_{xy} = \frac{K_{xy}}{\sigma_x \cdot \sigma_y} \]</div>
+                    <div class="decipher">
+                        <p><strong>Читается:</strong> Коэффициент корреляции равен корреляционному моменту, деленному на произведение сигм.</p>
+                        <ul>
+                            <li><b>\(\sigma_x, \sigma_y\)</b> — средние квадратические отклонения</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box">
+                        <strong>Свойства (из конспекта):</strong>
+                        <ul>
+                            <li>Характеризует степень зависимости. Если независимы, \(r_{xy} = 0\) (обратное неверно).</li>
+                            <li>Изменяется от -1 до 1: <b>\(-1 \le r_{xy} \le 1\)</b>.</li>
+                            <li><b>\(r_{xy} > 0\)</b> — прямая линейная корреляция.</li>
+                            <li><b>\(r_{xy} < 0\)</b> — обратная отрицательная корреляция.</li>
+                        </ul>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <tr><th>Значение \(|r_{xy}|\)</th><th>Степень зависимости (из конспекта)</th></tr>
+                            <tr><td>\(0 < |r_{xy}| \le 0.3\)</td><td>практически отсутствует</td></tr>
+                            <tr><td>\(0.3 < |r_{xy}| \le 0.5\)</td><td>слабая</td></tr>
+                            <tr><td>\(0.5 < |r_{xy}| \le 0.7\)</td><td>умеренная</td></tr>
+                            <tr><td>\(0.7 < |r_{xy}| < 1\)</td><td>сильная</td></tr>
+                            <tr><td>\(|r_{xy}| = \pm 1\)</td><td>функциональная</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛ 4: ПРЕДЕЛЬНЫЕ ТЕОРЕМЫ -->
+        <div class="section">
+            <div class="section-title"><i class="fas fa-infinity"></i> Регрессия и предельные теоремы</div>
+            <div class="grid">
+
+                <div class="card">
+                    <h3><i class="fas fa-wave-square"></i> Функция и уравнение регрессии</h3>
+                    <div class="term-line">
+                        <span class="term" data-term="Функция регрессии" data-def="Зависимость условного математического ожидания одной СВ от значений другой.">Функция регрессии</span>
+                    </div>
+                    <div class="formula-box">\[ M(Y|X=x) = \varphi(x) \]</div>
+                    <div class="decipher">
+                        <p><strong>Читается:</strong> Математическое ожидание Y при условии, что X равен x.</p>
+                        <ul>
+                            <li><i class="fas fa-caret-right"></i> <b>\(M(Y|X=x)\)</b> — среднее значение Y для конкретного x.</li>
+                            <li><i class="fas fa-caret-right"></i> <b>\(\varphi(x)\)</b> — функция, показывающая, как меняется среднее Y.</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box">
+                        <strong>Уравнение регрессии:</strong> формула для этой функции. При линейной регрессии: \(M(Y|X=x) = a_0 + a_1 x\).
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-balance-scale"></i> Неравенство и теоремы Чебышева</h3>
+                    <div class="term-line">
+                        <span class="term" data-term="Неравенство Чебышева" data-def="Оценка вероятности отклонения случайной величины от её математического ожидания.">Неравенство Чебышева</span>
+                    </div>
+                    <div class="formula-box">\[ P(|X - m_x| \ge \varepsilon) \le \frac{D_x}{\varepsilon^2} \]</div>
+                    <div class="decipher">
+                        <p><strong>Читается:</strong> Вероятность того, что X отклонится от среднего больше чем на эпсилон, не превышает дисперсию, деленную на эпсилон в квадрате.</p>
+                        <ul>
+                            <li><b>\(m_x\)</b> — матожидание</li>
+                            <li><b>\(\varepsilon\)</b> — граница отклонения</li>
+                            <li><b>\(D_x\)</b> — дисперсия</li>
+                        </ul>
+                    </div>
+
+                    <div class="term-line" style="margin-top:0.8rem;">
+                        <span class="term" data-term="Теорема Чебышева" data-def="Среднее арифметическое большого числа независимых СВ сходится по вероятности к среднему арифметическому их матожиданий.">Теорема Чебышева</span>
+                    </div>
+                    <div class="formula-box">\[ P\left(\left|\frac{1}{n}\sum X_i - \frac{1}{n}\sum M(X_i)\right| < \varepsilon\right) \ge 1 - \frac{D}{n\varepsilon^2} \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Среднее арифметическое выборки сходится к среднему теоретическому.</p>
+                    </div>
+
+                    <div class="term-line" style="margin-top:0.8rem;">
+                        <span class="term" data-term="Теорема Бернулли" data-def="Частота события сходится по вероятности к его вероятности при неограниченном увеличении числа испытаний.">Теорема Бернулли</span>
+                    </div>
+                    <div class="formula-box">\[ P\left(\left|\frac{m}{n} - p\right| < \varepsilon\right) \ge 1 - \frac{pq}{n\varepsilon^2} \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Частота \(m/n\) сходится к вероятности \(p\) при большом числе испытаний.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-chart-area"></i> ЦПТ и Муавр-Лаплас</h3>
+                    <div class="term-line">
+                        <span class="term" data-term="Центральная предельная теорема (ЦПТ)" data-def="Сумма большого числа независимых СВ с соизмеримыми дисперсиями имеет распределение, близкое к нормальному.">ЦПТ</span>
+                    </div>
+                    <div class="formula-box">\[ \sum_{i=1}^n X_i \xrightarrow{d} \mathcal{N}(n\mu, n\sigma^2) \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Сумма многих независимых величин распределена нормально.</p>
+                    </div>
+
+                    <p style="font-size:0.9rem; margin-top: 1rem;"><strong>Теоремы Муавра-Лапласа:</strong></p>
+                    <div class="term-line">
+                        <span class="term" data-term="Локальная теорема Муавра-Лапласа" data-def="Асимптотическая формула для вероятности ровно m успехов в n испытаниях.">Локальная</span>
+                    </div>
+                    <div class="formula-box">\[ P_n(m) \approx \frac{1}{\sqrt{npq}} \varphi\left(\frac{m - np}{\sqrt{npq}}\right) \]</div>
+                    <div class="decipher">
+                        <ul>
+                            <li><b>\(P_n(m)\)</b> — вероятность ровно m успехов</li>
+                            <li><b>n, m</b> — всего и успехов</li>
+                            <li><b>p, q</b> — вероятности</li>
+                            <li><b>\(\varphi\)</b> — функция Гаусса</li>
+                        </ul>
+                    </div>
+
+                    <div class="term-line" style="margin-top:0.8rem;">
+                        <span class="term" data-term="Интегральная теорема Муавра-Лапласа" data-def="Асимптотическая формула для вероятности попадания числа успехов в заданный интервал.">Интегральная</span>
+                    </div>
+                    <div class="formula-box">\[ P_n(m_1 \le m \le m_2) \approx \Phi(x_2) - \Phi(x_1) \]</div>
+                    <div class="decipher">
+                        <p><strong>Смысл:</strong> Вероятность того, что число успехов от m1 до m2.</p>
+                        <ul>
+                            <li><b>\(\Phi\)</b> — функция Лапласа</li>
+                            <li><b>\(x = \frac{m - np}{\sqrt{npq}}\)</b> — нормированное отклонение</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer">
+            <i class="fas fa-book-open"></i> Интерактивный конспект
+        </div>
+    </div>
+
+    <!-- Всплывающее окно определения -->
+    <div class="definition-popup" id="definitionPopup">
+        <div class="def-title" id="popupTitle">Термин</div>
+        <div class="def-text" id="popupText">Определение</div>
+    </div>
+
+    <script>
+        // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const current = body.getAttribute('data-theme');
+            if (current === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // ===== ВСПЛЫВАЮЩИЕ ОПРЕДЕЛЕНИЯ =====
+        const popup = document.getElementById('definitionPopup');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupText = document.getElementById('popupText');
+        let activeTerm = null;
+
+        document.querySelectorAll('.term').forEach(term => {
+            term.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                if (activeTerm === term) {
+                    popup.classList.remove('show');
+                    term.classList.remove('active');
+                    activeTerm = null;
+                    return;
+                }
+
+                if (activeTerm) {
+                    activeTerm.classList.remove('active');
+                }
+
+                term.classList.add('active');
+                activeTerm = term;
+                showPopup(term);
+            });
+        });
+
+        function showPopup(el) {
+            const termName = el.getAttribute('data-term') || el.textContent;
+            const definition = el.getAttribute('data-def') || 'Определение не найдено.';
+            popupTitle.textContent = termName;
+            popupText.textContent = definition;
+
+            const rect = el.getBoundingClientRect();
+            let left = rect.left;
+            let top = rect.bottom + 12;
+
+            const popupWidth = 380;
+            if (left + popupWidth > window.innerWidth) {
+                left = window.innerWidth - popupWidth - 20;
+            }
+            if (left < 10) left = 10;
+            if (top + 160 > window.innerHeight) {
+                top = rect.top - 170;
+                if (top < 10) top = 10;
+            }
+
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+            popup.classList.add('show');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('term') && !popup.contains(e.target)) {
+                popup.classList.remove('show');
+                if (activeTerm) {
+                    activeTerm.classList.remove('active');
+                    activeTerm = null;
+                }
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            popup.classList.remove('show');
+            if (activeTerm) {
+                activeTerm.classList.remove('active');
+                activeTerm = null;
+            }
+        });
+    </script>
+</body>
+</html>
